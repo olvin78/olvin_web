@@ -1,5 +1,5 @@
 # Ocultar settings y datos sensibles
-personal_olvin/settings.py
+settings.py
 .env
 *.env
 *.pyc
