@@ -1,0 +1,713 @@
+/* =======================================================
+   PALETA PRINCIPAL
+   - Azul oscuro: confianza, profesionalidad
+   - Morado: creatividad, misterio
+   - Naranja: energía, llamada a la acción
+   ======================================================= */
+
+:root {
+    /* Fondo general oscuro con toque tecnológico */
+    --color-bg: #050816;
+    --color-bg-soft: #0b1120;
+
+    /* Colores principales */
+    --color-primary: #6366F1;      /* morado-azulado intrigante */
+    --color-secondary: #F97316;    /* naranja acento */
+
+    /* Texto */
+    --color-light: #f9fafb;
+    --color-muted: #9ca3af;
+
+    /* Bordes y efectos */
+    --border-soft: rgba(148, 163, 184, 0.25);
+    --border-glow: rgba(99, 102, 241, 0.9);
+
+    /* Sombras */
+    --shadow-soft: 0 12px 30px rgba(15, 23, 42, 0.8);
+}
+
+/* =======================================================
+   ESTILOS BASE Y GENERALES
+   ======================================================= */
+
+body.bg-dark-olvin {
+    background: radial-gradient(circle at top, #111827 0, #020617 40%, #000 100%);
+    color: var(--color-light);
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.page-content {
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), #020617);
+}
+
+/* =======================================================
+   COMPONENTES REUTILIZABLES
+   ======================================================= */
+
+/* Panel grande (ideal para secciones enteras) */
+.section-panel {
+    background: radial-gradient(circle at top, #0f172a 0, #020617 55%, #000 100%);
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.8);
+}
+
+/* Tarjeta con glow */
+.card-glow {
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.75));
+    border-radius: 18px;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.7);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card-glow:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.95);
+    border-color: var(--border-glow);
+}
+
+/* Textos de acento */
+.text-accent {
+    color: var(--color-primary);
+}
+
+.text-secondary-accent {
+    color: var(--color-secondary);
+}
+
+.shadow-soft {
+    box-shadow: var(--shadow-soft);
+}
+
+/* =======================================================
+   NAVBAR - CORREGIDO
+   ======================================================= */
+
+.nav-glass {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px); /* Soporte para Safari */
+    border-bottom: 1px solid var(--border-soft);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-glass.nav-scrolled {
+    background: rgba(15, 23, 42, 0.98);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+}
+
+/* Punto del logo */
+.logo-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 999px;
+    background: radial-gradient(circle, var(--color-secondary), var(--color-primary));
+}
+
+/* CORRECCIONES PARA EL BOTÓN HAMBURGUESA */
+.navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    padding: 0.25rem 0.5rem;
+    z-index: 1050; /* Asegurar que esté por encima */
+    cursor: pointer !important;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25) !important;
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.85)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* Asegurar que el menú colapsado se muestre correctamente */
+.navbar-collapse {
+    z-index: 1040;
+}
+
+/* Para móviles: menú desplegable */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--border-soft);
+        border-bottom: 1px solid var(--border-soft);
+        margin-top: 0.5rem;
+        padding: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    
+    .navbar-nav {
+        text-align: center;
+    }
+    
+    .nav-item {
+        margin: 0.5rem 0;
+    }
+    
+    /* Asegurar que el botón sea claramente visible en móvil */
+    .navbar-toggler {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* =======================================================
+   BOTONES
+   ======================================================= */
+
+.btn-pill {
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    padding: 0.35rem 1rem;
+    font-size: 0.875rem;
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border: none;
+    color: #fff;
+    transition: opacity 0.25s ease;
+}
+
+.btn-accent:hover {
+    opacity: 0.9;
+    color: #fff;
+}
+
+/* =======================================================
+   HERO SECTION
+   ======================================================= */
+
+.hero-section {
+    padding-top: 5rem; /* por navbar fixed */
+    min-height: 15vh;
+    background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    letter-spacing: 0.03em;
+}
+
+.hero-title .accent {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-subtitle {
+    color: var(--color-muted);
+}
+
+/* =======================================================
+   BLOG - LAYOUT GENERAL
+   ======================================================= */
+
+.blog-hero-card {
+    background: radial-gradient(circle at top, #0f172a 0, #020617 55%, #000 100%);
+    border-radius: 24px;
+    padding: 2.5rem 2.75rem;
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
+}
+
+.blog-hero-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-secondary);
+}
+
+.blog-hero-title {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.blog-hero-excerpt {
+    color: var(--color-muted);
+    max-width: 48rem;
+}
+
+.blog-meta {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+}
+
+/* =======================================================
+   BLOG - COMPONENTES DE BÚSQUEDA Y TAGS
+   ======================================================= */
+
+.blog-search-bar {
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.blog-search-form .input-group {
+    background: rgba(15, 23, 42, 0.9);
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.8);
+}
+
+.blog-search-icon {
+    background: transparent;
+    border: none;
+    color: var(--color-muted);
+    font-size: 1.1rem;
+}
+
+.blog-search-input {
+    background: transparent;
+    border: none;
+    color: var(--color-light);
+    font-size: 0.95rem;
+}
+
+.blog-search-input::placeholder {
+    color: rgba(148, 163, 184, 0.7);
+}
+
+.blog-search-input:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.blog-search-button,
+.blog-search-reset {
+    border-radius: 999px !important;
+    padding-inline: 1.4rem;
+    font-size: 0.9rem;
+}
+
+.blog-search-reset {
+    border-color: rgba(148, 163, 184, 0.6);
+}
+
+.blog-tags-bar {
+    gap: 0.5rem;
+}
+
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    background: rgba(15, 23, 42, 0.85);
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    cursor: pointer;
+}
+
+.tag-pill:hover {
+    color: var(--color-light);
+    border-color: var(--color-primary);
+    transform: translateY(-1px);
+}
+
+.tag-pill.active {
+    border-color: var(--color-primary);
+    color: var(--color-light);
+    background: radial-gradient(circle at top, rgba(99, 102, 241, 0.3), rgba(15, 23, 42, 0.95));
+}
+
+.tag-pill-sm {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+}
+
+/* =======================================================
+   BLOG - TARJETAS DE POSTS
+   ======================================================= */
+
+.blog-card {
+    position: relative;
+}
+
+.blog-card-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.blog-card-link {
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--color-secondary);
+    font-weight: 500;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.blog-card-link:hover {
+    color: var(--color-primary);
+}
+
+/* =======================================================
+   BLOG - IMÁGENES
+   ======================================================= */
+
+.blog-hero-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    max-height: 260px;
+}
+
+.blog-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.02);
+    filter: saturate(1.05);
+}
+
+.blog-hero-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15,23,42,0.1), rgba(15,23,42,0.7));
+}
+
+.blog-card-image-wrapper {
+    overflow: hidden;
+    border-radius: 14px;
+    max-height: 150px;
+}
+
+.blog-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.05);
+}
+
+.post-hero-image-wrapper {
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.95);
+}
+
+.post-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* =======================================================
+   BLOG - DETALLE DEL POST
+   ======================================================= */
+
+.post-title {
+    font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+    font-weight: 600;
+}
+
+.post-detail-body {
+    margin-top: 1.5rem;
+    padding: 2.2rem 2rem;
+    border-radius: 24px;
+    background: radial-gradient(circle at top, #0f172a 0, #020617 55%, #000 100%);
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+}
+
+.post-reading-area {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 1rem 0 2rem 0;
+}
+
+.post-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-light);
+}
+
+.post-content p {
+    margin-bottom: 1.2rem;
+}
+
+.post-content ul,
+.post-content ol {
+    margin-bottom: 1.2rem;
+    padding-left: 1.5rem;
+}
+
+.post-content li {
+    margin-bottom: 0.4rem;
+}
+
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.post-content blockquote {
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    border-left: 4px solid var(--color-primary);
+    color: var(--color-muted);
+    font-style: italic;
+}
+
+.post-content img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+}
+
+.post-content pre,
+.post-content code {
+    background: rgba(255,255,255,0.06);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-family: "JetBrains Mono", monospace;
+}
+
+/* Mejor legibilidad del texto del post */
+.blog-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    color: var(--color-light);
+}
+
+.blog-content ul,
+.blog-content ol {
+    margin-bottom: 1rem;
+    padding-left: 1.4rem;
+}
+
+.blog-content li {
+    margin-bottom: 0.3rem;
+}
+
+.blog-content strong {
+    color: var(--color-primary);
+}
+
+/* =======================================================
+   FOOTER
+   ======================================================= */
+
+.footer-olvin {
+    background: #020617;
+    border-top: 1px solid var(--border-soft);
+    color: var(--color-muted);
+}
+
+/* =======================================================
+   ANIMACIONES
+   ======================================================= */
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.7s ease forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pequeño desfase en la animación para cada tarjeta */
+.blog-card.fade-up {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.6s ease forwards;
+}
+
+/* =======================================================
+   AJUSTES ESPECÍFICOS
+   ======================================================= */
+
+/* Ajustes para mejorar enlace Leer ahora */
+.blog-hero-card .btn-accent {
+    margin-top: 0.5rem;
+    margin-left: 2.7rem;
+}
+
+.blog-hero-card .blog-meta {
+    margin-bottom: 0.5rem;
+}
+
+.blog-hero-card {
+    padding: 2.8rem 3rem;
+}
+
+/* Ajuste opcional: separación en desktop entre imagen y texto */
+.blog-hero-card .row > .col-lg-7 {
+    padding-left: 1rem;
+}
+
+/* =======================================================
+   MEDIA QUERIES
+   ======================================================= */
+
+/* Mobile-friendly corrections */
+@media (max-width: 992px) {
+    .blog-hero-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    /* Asegurar espacio para el navbar en móvil */
+    .hero-section {
+        padding-top: 6rem;
+    }
+    
+    /* Botones más grandes y accesibles en móvil */
+    .btn-pill, .btn-accent {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Ajustes específicos para el botón hamburguesa en móvil */
+    .navbar-toggler {
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+/* Pequeños dispositivos */
+@media (max-width: 576px) {
+    .blog-hero-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .section-panel {
+        padding: 1.5rem;
+    }
+    
+    .post-detail-body {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* =======================================================
+   CORRECCIONES DE ACCESIBILIDAD E INTERACTIVIDAD
+   ======================================================= */
+
+/* Asegurar que todos los elementos clickeables tengan cursor pointer */
+button, .btn, .tag-pill, .blog-card-link, a {
+    cursor: pointer;
+}
+
+/* Prevenir selección de texto en elementos interactivos */
+.navbar-toggler, .btn, .tag-pill {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Mejorar contraste para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+
+/* espacio para tecnlogias que uso */
+.tech-card {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(3px);
+}
+
+.tech-card:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+}
+
+
+
+/* === Estilos para el formulario de contacto === */
+
+#contacto input::placeholder,
+#contacto textarea::placeholder {
+  color: #e0e0e0;         /* Color claro para placeholders */
+  opacity: 0.9;
+  font-style: italic;
+}
+
+#contacto input,
+#contacto textarea {
+  color: #949393;             /* Color del texto escrito */
+  background-color: #1e1e1e; /* Fondo oscuro uniforme */
+  border: 1px solid #444;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#contacto input:focus,
+#contacto textarea:focus {
+  border-color: #A8DADC;  /* Acento en foco */
+  box-shadow: 0 0 5px rgba(168, 218, 220, 0.4);
+  outline: none;
+}
+
+#contacto button {
+  transition: all 0.3s ease;
+}
+
+#contacto button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 8px rgba(168, 218, 220, 0.3);
+}
+
+
+
+/* esto es para el formulario de contactar para el alert*/
+
+.custom-alert {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-alert-content {
+  background: #1f1f1f;
+  color: white;
+  border: 2px solid #ffd700;
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+.d-none {
+  display: none !important;
+}
+

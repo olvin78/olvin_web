@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - Personal_Olvin{% endblock %}
+
+{# ---------- HERO: última publicación ---------- #}
+{% block hero %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-xl-10">
+      {% if latest_post %}
+      <article class="blog-hero-card fade-up">
+        <p class="blog-hero-label mb-3">Última publicación</p>
+
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5">
+            {% if latest_post.main_image %}
+            <div class="blog-hero-image-wrapper">
+              <img src="{{ latest_post.main_image.url }}"
+                   alt="{{ latest_post.title }}"
+                   class="blog-hero-image">
+              <div class="blog-hero-image-overlay"></div>
+            </div>
+            {% endif %}
+          </div>
+          <div class="col-lg-7">
+            <h1 class="blog-hero-title mb-3">
+              {{ latest_post.title }}
+            </h1>
+
+            {% if latest_post.excerpt %}
+              <p class="blog-hero-excerpt mb-4">
+                {{ latest_post.excerpt }}
+              </p>
+            {% endif %}
+
+            <div class="mt-3 d-flex flex-wrap align-items-start gap-3">
+              <span class="blog-meta">
+                Publicado el {{ latest_post.published_at|date:"d/m/Y H:i" }}
+              </span>
+              <a href="{% url 'blog_detail' latest_post.slug %}" class="btn btn-accent btn-lg shadow-soft">
+                Leer ahora
+              </a>
+            </div>
+
+            {% if latest_post.tags.all %}
+              <div class="mt-3 d-flex flex-wrap gap-2">
+                {% for tag in latest_post.tags.all %}
+                  <span class="tag-pill small">
+                    {{ tag.name }}
+                  </span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+      {% else %}
+      <div class="section-panel text-center">
+        <h1 class="h3 mb-2">Aún no hay publicaciones</h1>
+        <p class="text-muted mb-0">
+          Cuando publiques tu primer artículo, aparecerá destacado aquí.
+        </p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{# ---------- CONTENIDO: buscador + etiquetas + publicaciones ---------- #}
+
+{% block content %}
+
+{# BUSCADOR #}
+<div class="blog-search-bar mb-3">
+  <form method="get" action="{% url 'blog_index' %}" class="blog-search-form">
+    <div class="input-group">
+      <span class="input-group-text blog-search-icon">
+        🔍
+      </span>
+      <input
+        type="text"
+        class="form-control blog-search-input"
+        name="q"
+        placeholder="Buscar en el blog por título, resumen o contenido..."
+        value="{{ query|default:'' }}"
+      >
+      {% if query or active_tag %}
+        <a href="{% url 'blog_index' %}" class="btn btn-outline-light blog-search-reset">
+          Limpiar
+        </a>
+      {% else %}
+        <button class="btn btn-accent blog-search-button" type="submit">
+          Buscar
+        </button>
+      {% endif %}
+    </div>
+
+    {% if query %}
+      <p class="small text-muted mt-2 mb-0">
+        Resultados para <span class="text-accent">"{{ query }}"</span>:
+        {{ results_count }} artículo{{ results_count|pluralize }}.
+      </p>
+    {% endif %}
+  </form>
+</div>
+
+{# BARRA DE ETIQUETAS #}
+{% if all_tags %}
+  <div class="blog-tags-bar mb-4 d-flex flex-wrap gap-2">
+    {# Botón "Todas" #}
+    {% if active_tag %}
+      {% if query %}
+        <a href="?q={{ query|urlencode }}" class="tag-pill">
+          Todas
+        </a>
+      {% else %}
+        <a href="{% url 'blog_index' %}" class="tag-pill">
+          Todas
+        </a>
+      {% endif %}
+    {% else %}
+      <span class="tag-pill active">
+        Todas
+      </span>
+    {% endif %}
+
+    {# Tags individuales #}
+    {% for tag in all_tags %}
+      {% if active_tag and tag.id == active_tag.id %}
+        <span class="tag-pill active">
+          {{ tag.name }}
+        </span>
+      {% else %}
+        {% if query %}
+          <a href="?tag={{ tag.slug }}&q={{ query|urlencode }}" class="tag-pill">
+            {{ tag.name }}
+          </a>
+        {% else %}
+          <a href="?tag={{ tag.slug }}" class="tag-pill">
+            {{ tag.name }}
+          </a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
+
+{# LISTADO DE PUBLICACIONES #}
+{% if recent_posts %}
+  <div class="mb-4 d-flex justify-content-between align-items-center">
+    <h2 class="h4 mb-0">Publicaciones recientes</h2>
+    {% if not query and not active_tag %}
+      <span class="small text-secondary">
+        Mostrando {{ recent_posts|length }} artículos anteriores a la última publicación.
+      </span>
+    {% endif %}
+  </div>
+
+  <div class="row g-4">
+    {% for post in recent_posts %}
+    <div class="col-md-6 col-lg-4">
+      <article class="card-glow blog-card h-100 fade-up"
+               style="animation-delay: {{ forloop.counter0|add:'1' }}00ms;">
+
+        {% if post.main_image %}
+        <div class="blog-card-image-wrapper mb-3">
+          <img src="{{ post.main_image.url }}"
+               alt="{{ post.title }}"
+               class="blog-card-image">
+        </div>
+        {% endif %}
+
+        <h3 class="h5 mb-2 text-accent">
+          {{ post.title }}
+        </h3>
+
+        {% if post.excerpt %}
+          <p class="blog-card-excerpt mb-3">
+            {{ post.excerpt }}
+          </p>
+        {% else %}
+          <p class="text-muted blog-card-excerpt mb-3">
+            {{ post.content|truncatewords:22 }}
+          </p>
+        {% endif %}
+
+        <p class="blog-meta mb-2">
+          {{ post.published_at|date:"d/m/Y" }}
+        </p>
+
+        {% if post.tags.all %}
+          <p class="small text-muted mb-2">
+            {% for tag in post.tags.all %}
+              <span class="tag-pill tag-pill-sm">{{ tag.name }}</span>
+            {% endfor %}
+          </p>
+        {% endif %}
+
+        <a href="{% url 'blog_detail' post.slug %}" class="blog-card-link">
+          Leer artículo →
+        </a>
+      </article>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  {% if latest_post %}
+    <p class="text-muted mt-4">
+      No se han encontrado publicaciones que coincidan con los filtros aplicados.
+    </p>
+  {% endif %}
+{% endif %}
+
+{% endblock %}

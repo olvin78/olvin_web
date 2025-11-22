@@ -1,0 +1,11 @@
+# Ocultar settings y datos sensibles
+personal_olvin/settings.py
+.env
+*.env
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+env/
+venv/
+.venv/

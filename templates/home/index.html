@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Personal Olvin{% endblock %}
+
+{% block content %}
+<section class="section-panel mb-5">
+  <h2 class="h3 mb-4">¿Quién soy?</h2>
+  <p class="text-light">
+    Soy <strong>Olvin</strong>, técnico informático y desarrollador digital. Me gusta trabajar en proyectos que mezclen utilidad con estilo. 
+    No me gusta lo genérico: prefiero hacer cosas que se noten distintas, bien pensadas y que realmente sirvan. 
+    Aquí comparto algunos de mis trabajos y lo que sé hacer.
+  </p>
+</section>
+
+
+
+<!-- PORTAFOLIO VISUAL -->
+<section class="section-panel mb-5">
+  <h2 class="h4 mb-4">Portafolio</h2>
+  <div class="row g-4">
+    {% for project in projects %}
+    <div class="col-md-6 col-lg-4">
+      <div class="card-glow h-100 p-3 d-flex flex-column">
+        {% if project.image %}
+          <img src="{{ project.image.url }}" class="img-fluid rounded mb-3" alt="{{ project.title }}">
+        {% endif %}
+        <h3 class="h6 text-accent">{{ project.title }}</h3>
+        {% if project.subtitle %}
+          <p class="text-secondary small mb-1">{{ project.subtitle }}</p>
+        {% endif %}
+        <p class="text-light flex-grow-1">{{ project.description }}</p>
+        {% if project.url %}
+          <a href="{{ project.url }}" target="_blank" class="btn btn-outline-light mt-auto w-100">Ver detalles</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+
+<!-- TECNOLOGÍAS -->
+
+<section class="section-panel mb-5">
+  <h2 class="h4 mb-4">Tecnologías y herramientas</h2>
+  <p class="text-light">
+    Esto es con lo que suelo trabajar: tecnologías estables, modernas y adaptables a lo que necesita cada proyecto.
+  </p>
+
+  <div class="row row-cols-2 row-cols-md-4 g-4 mt-3">
+    {% for tech in technologies %}
+    <div class="col">
+      <div class="tech-card text-center p-3 rounded-3 h-100">
+        {% if tech.image %}
+          <img src="{{ tech.image.url }}" alt="{{ tech.name }}" style="height:48px;">
+        {% endif %}
+        <p class="mt-2 mb-0 text-light small">{{ tech.name }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+
+
+
+<!-- CONTACTO -->
+
+<section class="section-panel mb-5" id="contacto">
+  <h2 class="h4 mb-3">¿Colaboramos?</h2>
+  <p class="text-light">
+    Si tienes una idea, un negocio o un problema técnico, escríbeme directamente. Estoy abierto a colaborar, asesorar o simplemente hablar de tu proyecto.
+  </p>
+
+  <form method="post" action="{% url 'contact' %}" class="mt-4" id="form-contacto">
+    {% csrf_token %}
+    <div class="row g-3">
+      <div class="col-md-6">
+        <input 
+          type="text" 
+          name="name" 
+          class="form-control" 
+          placeholder="✍️ Escribe tu nombre completo" 
+          required>
+      </div>
+      <div class="col-md-6">
+        <input 
+          type="email" 
+          name="email" 
+          class="form-control" 
+          placeholder="📧 Tu correo electrónico" 
+          required>
+      </div>
+      <div class="col-md-6">
+        <input 
+          type="tel" 
+          name="phone" 
+          id="phoneInput"
+          class="form-control" 
+          placeholder="📱 Teléfono (opcional)">
+      </div>
+      <div class="col-12">
+        <textarea 
+          name="message" 
+          rows="4" 
+          class="form-control" 
+          placeholder="💬 Cuéntame en qué puedo ayudarte..." 
+          required></textarea>
+      </div>
+      <div class="col-12 d-grid">
+        <button type="submit" class="btn btn-accent btn-lg mt-2 shadow-sm">
+          📩 Enviar mensaje
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+
+{% if success %}
+  <div class="alert alert-success mt-4">{{ success }}</div>
+{% endif %}
+{% if error %}
+  <div class="alert alert-danger mt-4">{{ error }}</div>
+{% endif %}
+
+
+
+<div class="modal fade" id="phoneModal" tabindex="-1" aria-labelledby="phoneModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-light border-accent">
+      <div class="modal-header">
+        <h5 class="modal-title" id="phoneModalLabel">¿No quieres dejar tu teléfono?</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        Dejar tu número facilita que podamos contactarte más rápido. ¿Deseas agregarlo?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Omitir</button>
+        <button type="button" class="btn btn-accent" id="agregarTelefonoBtn">Agregar número</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('form-contacto');
+  const phoneInput = document.getElementById('phoneInput');
+  const modal = new bootstrap.Modal(document.getElementById('phoneModal'));
+  const agregarBtn = document.getElementById('agregarTelefonoBtn');
+
+  let enviarFormulario = false;
+
+  form.addEventListener('submit', function (e) {
+    if (!enviarFormulario && phoneInput.value.trim() === '') {
+      e.preventDefault();
+      modal.show();
+    }
+  });
+
+  agregarBtn.addEventListener('click', function () {
+    modal.hide();
+    phoneInput.focus();
+  });
+
+  document.querySelector('#phoneModal .btn-outline-light').addEventListener('click', function () {
+    enviarFormulario = true;
+    form.submit();
+  });
+});
+</script>
+
+
+{% endblock %}
