@@ -33,10 +33,10 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarOlvin">
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/">Inicio</a>
+          <a class="nav-link" href="{% url 'home' %}">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-link" href="{% url 'blog_index' %}">Blog</a>
         </li>
         <li class="nav-item">
           <a class="nav-link btn-pill" href="/contacto/">Contacto</a>
