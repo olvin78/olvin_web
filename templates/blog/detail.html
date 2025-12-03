@@ -8,12 +8,13 @@
     <div class="col-xl-10">
 
       {% if post.main_image %}
-      <div class="post-hero-image-wrapper fade-up">
-        <img src="{{ post.main_image.url }}"
-             alt="{{ post.title }}"
-             class="post-hero-image">
-      </div>
+        <div class="post-hero-image-wrapper fade-up">
+          <img src="{{ post.main_image.url }}"
+              alt="{{ post.title }}"
+              class="post-hero-image">
+        </div>
       {% endif %}
+
 
       <div class="mt-4 fade-up" style="animation-delay: 80ms;">
         {% if post.tags.all %}
